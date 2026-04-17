@@ -173,6 +173,12 @@
 
 [url "git://gist.github.com/"]
   insteadOf = "gist:"
+{{- if and .hasGitlabAccess (ne .gitlabHost "") }}
+
+[url "git@{{ .gitlabHost }}:"]
+  insteadOf = "gl:"
+  pushInsteadOf = "gitlab:"
+{{- end }}
 
 [pull]
   rebase = true
