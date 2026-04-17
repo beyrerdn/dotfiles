@@ -1,0 +1,37 @@
+#!/bin/bash
+set -eufo pipefail
+
+{{- if and .hasGitlabAccess .setSshKey (ne .gitlabHost "") }}
+
+sshKeyPath="{{ .chezmoi.homeDir }}/.ssh/id_gitlab"
+
+if [ ! -f "$sshKeyPath" ]; then
+  echo "🔑  Setting up GitLab SSH key"
+  ssh-keygen -t ed25519 -C "{{ .email }}" -f "$sshKeyPath"
+  echo "✅  Created id_gitlab key"
+
+  echo "🔑  Adding key to agent"
+  eval "$(ssh-agent -s)"
+  {{- if eq .chezmoi.os "darwin" }}
+  ssh-add --apple-use-keychain "$sshKeyPath"
+  {{- else }}
+  ssh-add "$sshKeyPath"
+  {{- end }}
+  echo "✅  Added id_gitlab key to agent"
+
+  echo "🦊  Uploading SSH key to GitLab"
+  {{- if eq .chezmoi.os "darwin" }}
+  pbcopy < "$sshKeyPath".pub
+  echo "✅  Copied key contents to clipboard"
+  echo "🌐  Opening GitLab"
+  open "https://{{ .gitlabHost }}/-/profile/keys"
+  {{- else }}
+  command -v xclip &>/dev/null && xclip -selection clipboard < "$sshKeyPath".pub && echo "✅  Copied key contents to clipboard"
+  echo "🌐  Open https://{{ .gitlabHost }}/-/profile/keys to add your key:"
+  cat "$sshKeyPath".pub
+  {{- end }}
+else
+  echo "ℹ️  SSH key id_gitlab already exists, skipping creation"
+fi
+
+{{- end }}
