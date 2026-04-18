@@ -123,6 +123,7 @@ disabled = true
 
 [nodejs]
 disabled = false
+format = "[$version](bold green) "
 
 [ocaml]
 disabled = true
