@@ -2,9 +2,10 @@
   "encryption": "age",
   "age": {
     "identity": "~/.config/chezmoi/key.txt",
-    "recipient": "age1x5kl36cdnc3mzgjvfqga2nugjuhpugwvyvu07u467zdtfu5vvy2s86mcqw"
+    "recipient": {{ promptStringOnce . "ageRecipient" "Age public key (run: age-keygen -y ~/.config/chezmoi/key.txt)" | quote }}
   },
   "data": {
+    "name": {{ promptString "What is your name" | quote }},
     "email": {{ promptString "What is your email" | quote }},
     "profile": {{ promptChoice "What type of setup do you want" (list "personal" "work") | quote }},
     "setSshKey": {{ promptBool "Do you want to set up an SSH key" }},
