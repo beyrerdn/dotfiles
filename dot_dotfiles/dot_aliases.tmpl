@@ -5,23 +5,55 @@ alias zshedit='$EDITOR ~/.zshrc' # Edit .zshrc config file
 alias cp='cp -iv' # Preferred 'cp' implementation
 alias mv='mv -iv' # Preferred 'mv' implementation
 alias mkdir='mkdir -pv' # Preferred 'mkdir' implementation
-alias ..='cd ../' # Go back 1 directory level
-alias ...='cd ../../' # Go back 2 directory levels
 alias edit='$EDITOR' # Opens any file in $editor
 alias f='open -a Finder ./' # Opens current directory in MacOS Finder
-alias ~="cd ~" # Go Home
 alias c='clear' # Clear terminal display
 alias flushDNS='dscacheutil -flushcache' # Flush out the DNS Cache
 alias cat='bat --paging=never' # Use bat for cat
 alias ls='eza --color=always --no-quotes' # Use eza for ls
+alias la='eza -laF --color=always --no-quotes' # Use eza for ls
+
+# Intuitive map function
+# For example, to list all directories that contain a certain file:
+# find . -name .gitattributes | map dirname
+alias map="xargs -n1"
+
+# Empty the Trash on all mounted volumes and the main HDD
+# Also, clear Apple’s System Logs to improve shell startup speed
+alias emptytrash="sudo rm -rfv /Volumes/*/.Trashes; sudo rm -rfv ~/.Trash; sudo rm -rfv /private/var/log/asl/*.asl"
+
+# IP addresses
+alias ip="dig +short myip.opendns.com @resolver1.opendns.com"
+alias localip="ipconfig getifaddr en0"
+alias ips="ifconfig -a | grep -o 'inet6\? \(addr:\)\?\s\?\(\(\([0-9]\+\.\)\{3\}[0-9]\+\)\|[a-fA-F0-9:]\+\)' | awk '{ sub(/inet6? (addr:)? ?/, \"\"); print }'"
+
+# Stopwatch
+alias timer='echo "Timer started. Stop with Ctrl-D." && date && time cat && date'
+
 alias dotfiles='curl -sfL https://raw.githubusercontent.com/beyrerdn/dotfiles/master/.setup.sh | bash'
+
+# Navigation
+alias cd='z'
+alias ..='cd ../' # Go back 1 directory level
+alias ...='cd ../../' # Go back 2 directory levels
+alias ~="cd ~" # Go Home
+
+# Docker
 alias dc='docker compose' # Short for docker compose
 alias dcup='dc up -d'
 alias dcdown='dc stop && dc down --remove-orphans'
 alias dce='docker compose exec' # Short for docker compose exec
-alias cd='z'
+
+# Kubernetes
 alias kctl='kubectl'
+
+# AI Stuff
 alias ai='opencode'
+
 {{- if eq .profile "work" }}
 {{ join .chezmoi.sourceDir "dot_dotfiles/.work_aliases.age" | include | decrypt }}
 {{- end }}
+
+# Stuff I never really use but cannot delete either because of http://xkcd.com/530/
+alias stfu="osascript -e 'set volume output muted true'"
+alias pumpitup="osascript -e 'set volume 7'"
