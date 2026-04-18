@@ -3,7 +3,6 @@
 set -eufo pipefail
 
 brew bundle --file=/dev/stdin <<EOF
-tap "timrogers/tap"
 brew "starship"
 brew "git"
 brew "tree"
@@ -14,7 +13,7 @@ brew "git-delta"
 brew "lazygit"
 brew "eza"
 brew "fnm"
-brew tap timrogers/tap && brew install litra-autotoggle
+tap "timrogers/tap" && brew "litra-autotoggle"
 brew "litra"
 brew "httpie"
 brew "age"
