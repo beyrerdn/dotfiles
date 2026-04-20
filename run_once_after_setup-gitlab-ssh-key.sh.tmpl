@@ -1,7 +1,7 @@
 #!/bin/bash
 set -eufo pipefail
 
-{{- if and .hasGitlabAccess .setSshKey (ne .gitlabHost "") }}
+{{- if and .hasGitlabAccess .setSshKey }}
 
 sshKeyPath="{{ .chezmoi.homeDir }}/.ssh/id_gitlab"
 
@@ -24,10 +24,10 @@ if [ ! -f "$sshKeyPath" ]; then
   pbcopy < "$sshKeyPath".pub
   echo "✅  Copied key contents to clipboard"
   echo "🌐  Opening GitLab"
-  open "https://{{ .gitlabHost }}/-/profile/keys"
+  open "https://gitlab.com/-/profile/keys"
   {{- else }}
   command -v xclip &>/dev/null && xclip -selection clipboard < "$sshKeyPath".pub && echo "✅  Copied key contents to clipboard"
-  echo "🌐  Open https://{{ .gitlabHost }}/-/profile/keys to add your key:"
+  echo "🌐  Open https://gitlab.com/-/profile/keys to add your key:"
   cat "$sshKeyPath".pub
   {{- end }}
 else

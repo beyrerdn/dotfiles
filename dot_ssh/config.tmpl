@@ -4,9 +4,9 @@ Host *
 
 Host github.com
   IdentityFile ~/.ssh/{{ .gitSigningKeyName }}
-{{- if and .hasGitlabAccess (ne .gitlabHost "") }}
+{{- if .hasGitlabAccess }}
 
-Host {{ .gitlabHost }}
+Host gitlab.com
   IdentityFile ~/.ssh/id_gitlab
   AddKeysToAgent yes
 {{- end }}

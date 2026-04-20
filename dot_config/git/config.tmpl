@@ -173,9 +173,9 @@
 
 [url "git://gist.github.com/"]
   insteadOf = "gist:"
-{{- if and .hasGitlabAccess (ne .gitlabHost "") }}
+{{- if .hasGitlabAccess }}
 
-[url "git@{{ .gitlabHost }}:"]
+[url "git@gitlab.com:"]
   insteadOf = "gl:"
   pushInsteadOf = "gitlab:"
 {{- end }}
