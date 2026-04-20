@@ -24,6 +24,14 @@ brew "zsh-autosuggestions"
 brew "zsh-history-substring-search"
 brew "glow"
 {{- if eq .profile "work" }}
+brew "pkg-config"
+brew "pixman"
+brew "cairo"
+brew "pango"
+brew "libpng"
+brew "giflib"
+brew "librsvg"
+brew "tilt"
 {{ join .chezmoi.sourceDir ".work-brew-packages.age" | include | decrypt }}
 {{- end }}
 cask "google-chrome"
