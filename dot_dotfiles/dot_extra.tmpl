@@ -13,8 +13,10 @@ if [[ -f /opt/homebrew/share/zsh-history-substring-search/zsh-history-substring-
   bindkey '^[[B' history-substring-search-down
 fi
 
-# FNM
-eval "$(fnm env --use-on-cd)"
+# NVM
+export NVM_DIR="$HOME/.nvm"
+[ -s "/opt/homebrew/opt/nvm/nvm.sh" ] && source "/opt/homebrew/opt/nvm/nvm.sh"
+[ -s "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm" ] && source "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm"
 
 # Zoxide
 eval "$(zoxide init zsh)"
