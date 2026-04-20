@@ -24,10 +24,10 @@ if [ ! -f "$sshKeyPath" ]; then
   pbcopy < "$sshKeyPath".pub
   echo "✅  Copied key contents to clipboard"
   echo "🌐  Opening GitLab"
-  open "https://gitlab.com/-/profile/keys"
+  open "https://gitlab.com/-/user_settings/ssh_keys"
   {{- else }}
   command -v xclip &>/dev/null && xclip -selection clipboard < "$sshKeyPath".pub && echo "✅  Copied key contents to clipboard"
-  echo "🌐  Open https://gitlab.com/-/profile/keys to add your key:"
+  echo "🌐  Open https://gitlab.com/-/user_settings/ssh_keys to add your key:"
   cat "$sshKeyPath".pub
   {{- end }}
 else
