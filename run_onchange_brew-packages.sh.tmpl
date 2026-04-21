@@ -32,6 +32,7 @@ brew "libpng"
 brew "giflib"
 brew "librsvg"
 brew "tilt"
+brew "dopplerhq/cli/doppler"
 {{ join .chezmoi.sourceDir ".work-brew-packages.age" | include | decrypt }}
 {{- end }}
 cask "google-chrome"
