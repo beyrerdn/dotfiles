@@ -3,10 +3,7 @@ Host *
   UseKeychain yes
 
 Host github.com
-  IdentityFile ~/.ssh/{{ .gitSigningKeyName }}
-{{- if .hasGitlabAccess }}
+  IdentityFile ~/.ssh/id_github
 
 Host gitlab.com
   IdentityFile ~/.ssh/id_gitlab
-  AddKeysToAgent yes
-{{- end }}
